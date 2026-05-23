@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Master AI concepts, LLMs, Deep Learning, and MLOps with Aura: the ultimate AI Fluency Quizzing platform for graduates and professionals.">
+    <title>Aura - AI Fluency Trivia & Quizzing</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand" id="brand-home">
+                <span class="brand-logo">▲</span>
+                <span class="brand-name">AURA<span class="brand-suffix">.ai</span></span>
+            </div>
+            <div class="header-actions">
+                <div class="high-score-pill">
+                    <span class="pill-label">🏆 BEST</span>
+                    <span class="pill-value" id="global-high-score">0</span>
+                </div>
+                <button class="icon-button" id="btn-settings" aria-label="Settings" title="Settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- LANDING SCREEN -->
+        <main class="screen active" id="screen-landing">
+            <section class="hero-section">
+                <h1 class="hero-title">Elevate Your <span class="gradient-text">AI Fluency</span></h1>
+                <p class="hero-subtitle">Interactive, high-fidelity quiz modules covering the core subfields of Artificial Intelligence. Designed for new graduates and working professionals aiming for mastery.</p>
+            </section>
+
+            <!-- Tab Navigation -->
+            <section class="tab-section">
+                <div class="tab-bar" id="tab-bar">
+                    <button class="tab-btn active" data-tab="ai-fluency">
+                        <span class="tab-icon">🧠</span>
+                        <span class="tab-label">AI Fluency</span>
+                    </button>
+                    <button class="tab-btn" data-tab="gcp-cert">
+                        <span class="tab-icon">☁️</span>
+                        <span class="tab-label">GCP ML Engineer Cert</span>
+                    </button>
+                    <div class="tab-indicator" id="tab-indicator"></div>
+                </div>
+            </section>
+
+            <!-- Category Section -->
+            <section class="categories-section">
+                <div class="section-header" id="section-header">
+                    <h2 class="section-title" id="section-title">Select AI Knowledge Domain</h2>
+                    <p class="section-description" id="section-description">Choose a specialization to start your 10-question dynamic quiz module.</p>
+                </div>
+                
+                <div class="category-grid" id="category-grid">
+                    <!-- Categories will be generated dynamically by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- QUIZ SCREEN -->
+        <main class="screen" id="screen-quiz">
+            <div class="quiz-container">
+                <!-- Quiz Header Info -->
+                <div class="quiz-info-bar">
+                    <button class="back-link-btn" id="btn-quit-quiz">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        Quit
+                    </button>
+                    <span class="active-category-tag" id="quiz-category-title">Generative AI</span>
+                    <div class="score-display">
+                        Score: <span id="quiz-current-score" class="accent-text">0</span>
+                    </div>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="progress-section">
+                    <div class="progress-meta">
+                        <span>Question <strong id="current-question-num">1</strong> of 10</span>
+                        <span id="question-points-badge" class="badge">+100 pts</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="quiz-progress-fill" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <!-- Timer Bar -->
+                <div class="timer-section">
+                    <div class="timer-label-row">
+                        <span class="timer-icon">⏱️</span>
+                        <span class="timer-countdown" id="timer-text">30s</span>
+                    </div>
+                    <div class="timer-track">
+                        <div class="timer-fill" id="quiz-timer-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Question Card -->
+                <div class="question-card" id="question-card">
+                    <p class="question-text" id="question-text">
+                        <!-- Loaded dynamically -->
+                    </p>
+                    <div class="options-grid" id="options-container">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="quiz-action-bar">
+                    <p class="feedback-text" id="quiz-feedback-text"></p>
+                    <button class="primary-button hidden" id="btn-next-question">
+                        <span>Next Question</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- RESULTS SCREEN -->
+        <main class="screen" id="screen-results">
+            <div class="results-container">
+                <div class="results-card">
+                    <div class="results-header">
+                        <div class="badge-emitter" id="results-rank-badge">AI Expert</div>
+                        <h2 class="results-title">Quiz Completed!</h2>
+                        <p class="results-subtitle" id="results-category-name">Generative AI & LLMs</p>
+                    </div>
+
+                    <div class="score-circle-wrapper">
+                        <svg class="score-ring" width="200" height="200">
+                            <circle class="score-ring-bg" cx="100" cy="100" r="85"></circle>
+                            <circle class="score-ring-fill" id="score-ring-fill" cx="100" cy="100" r="85" stroke-dasharray="534" stroke-dashoffset="534"></circle>
+                        </svg>
+                        <div class="score-circle-text">
+                            <span class="score-ratio"><span id="results-correct-count">0</span>/10</span>
+                            <span class="score-points" id="results-points-total">0 pts</span>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-val" id="stat-accuracy">0%</span>
+                            <span class="stat-lbl">Accuracy</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-val" id="stat-avg-time">0.0s</span>
+                            <span class="stat-lbl">Avg Response</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-val" id="stat-high-score-tag">New Personal Best!</span>
+                            <span class="stat-lbl">Record</span>
+                        </div>
+                    </div>
+
+                    <div class="result-actions">
+                        <button class="primary-button" id="btn-restart-quiz">
+                            <span>Retake Quiz</span>
+                        </button>
+                        <button class="secondary-button" id="btn-results-home">
+                            <span>Home</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review Section -->
+                <div class="review-section">
+                    <h3 class="review-title">Detailed Question Review</h3>
+                    <div class="review-list" id="review-list-container">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- SETTINGS SCREEN -->
+        <main class="screen" id="screen-settings">
+            <div class="settings-container">
+                <div class="settings-header-row">
+                    <button class="back-link-btn" id="btn-settings-back">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        Back
+                    </button>
+                    <h2 class="settings-title">Developer Settings</h2>
+                </div>
+
+                <div class="settings-card">
+                    <!-- API Key Setting -->
+                    <div class="setting-group">
+                        <label class="setting-label" for="input-api-key">
+                            Google Gemini API Key
+                            <span class="tooltip" title="Your API key remains local in your browser and is never uploaded anywhere.">ℹ️</span>
+                        </label>
+                        <div class="input-password-wrapper">
+                            <input type="password" id="input-api-key" placeholder="Enter your Gemini API key...">
+                            <button class="btn-toggle-password" id="btn-toggle-api-visibility" type="button" aria-label="Toggle Password Visibility">
+                                👁️
+                            </button>
+                        </div>
+                        <p class="setting-help">
+                            Required to generate brand new, dynamic questions. If left blank, the app runs in **Offline Mock Mode**.
+                        </p>
+                    </div>
+
+                    <!-- Model Setting -->
+                    <div class="setting-group">
+                        <label class="setting-label" for="input-model-name">Gemini Model ID</label>
+                        <input type="text" id="input-model-name" value="gemini-2.5-flash" placeholder="e.g., gemini-3.5-flash, gemini-2.5-flash">
+                        <p class="setting-help">
+                            Select the model version. We default to `gemini-2.5-flash`, but you can use `gemini-3.5-flash` or `gemini-1.5-pro` based on your access.
+                        </p>
+                    </div>
+
+                    <!-- Save Actions -->
+                    <div class="settings-actions">
+                        <button class="primary-button" id="btn-save-settings">Save Configurations</button>
+                        <span class="save-status-msg" id="settings-status-msg"></span>
+                    </div>
+                </div>
+
+                <!-- API Key Walkthrough Card -->
+                <div class="walkthrough-card">
+                    <h3>🔑 How to Get a Free Gemini API Key</h3>
+                    <ol class="walkthrough-list">
+                        <li>Go to the official <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer" class="link-highlight">Google AI Studio</a> console.</li>
+                        <li>Log in with any personal Google/Gmail account.</li>
+                        <li>Click the blue <strong>"Get API key"</strong> button in the left sidebar.</li>
+                        <li>Click <strong>"Create API key"</strong>, then select an existing Google Cloud project or create a new one.</li>
+                        <li>Copy the generated API key (it starts with <code>AIzaSy...</code>).</li>
+                        <li>Paste it into the API input box above, then click <strong>"Save Configurations"</strong>.</li>
+                    </ol>
+                    <p class="walkthrough-alert">
+                        <strong>Note:</strong> Standard accounts get free, rate-limited access which is more than enough for playing and testing this quizzing application.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loader overlay for API fetching -->
+        <div class="loader-overlay hidden" id="quiz-loader">
+            <div class="loader-content">
+                <div class="spinner"></div>
+                <h3 class="loader-title">Synthesizing Quiz Questions...</h3>
+                <p class="loader-subtitle" id="loader-sub-text">Gemini is compiling custom multiple-choice questions for you.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>© 2026 Aura AI Fluency App. Powered by Gemini API.</p>
+    </footer>
+
+    <!-- JS Files -->
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

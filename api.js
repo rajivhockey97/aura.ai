@@ -4,7 +4,12 @@
    ========================================================================== */
 
 // --- Tab System: Two category sets ---
-let activeTab = "ai-fluency"; // "ai-fluency" | "gcp-cert"
+// Shared mutable state for active tab
+const tabState = { activeTab: "ai-fluency" }; // "ai-fluency" | "gcp-cert"
+
+// Shorthand getter/setter
+function getActiveTab() { return tabState.activeTab; }
+function setActiveTab(val) { tabState.activeTab = val; }
 
 // General AI Fluency categories
 const AI_FLUENCY_CATEGORIES = [
@@ -130,7 +135,7 @@ const AI_FLUENCY_OFFLINE_DATA = {
 
 // Get active categories based on selected tab
 function getActiveCategories() {
-    return activeTab === "ai-fluency" ? AI_FLUENCY_CATEGORIES : GCP_CATEGORIES;
+    return getActiveTab() === "ai-fluency" ? AI_FLUENCY_CATEGORIES : GCP_CATEGORIES;
 }
 
 // For backward compatibility - AI_CATEGORIES is now dynamic
@@ -894,7 +899,7 @@ async function fetchQuizQuestions(categoryId) {
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
 
     // Dynamic prompt based on active tab
-    const isGcpCert = activeTab === "gcp-cert";
+    const isGcpCert = getActiveTab() === "gcp-cert";
     const promptText = isGcpCert
     ? `
 Generate a challenging and highly educational multiple-choice quiz on the Google Cloud Professional Machine Learning Engineer exam domain: "${categoryName}".
@@ -1058,3 +1063,6 @@ function getOfflineQuestions(categoryId) {
     // Return a deep copy so state isn't modified
     return JSON.parse(JSON.stringify(list));
 }
+
+// --- Exports for module bundling ---
+export { getActiveTab, setActiveTab, getActiveCategories, fetchQuizQuestions };

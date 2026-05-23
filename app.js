@@ -2,6 +2,8 @@
    Aura - AI Fluency Quizzing Core Logic & UI Orchestrator
    ========================================================================== */
 
+import { getActiveTab, setActiveTab, getActiveCategories, fetchQuizQuestions } from './api.js';
+
 // --- Global Application State ---
 const state = {
     questions: [],
@@ -96,8 +98,8 @@ function initApp() {
     tabButtons.forEach(btn => {
         btn.addEventListener("click", () => {
             const tab = btn.dataset.tab;
-            if (tab === activeTab) return;
-            activeTab = tab;
+            if (tab === getActiveTab()) return;
+            setActiveTab(tab);
             tabButtons.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
             if (tab === "gcp-cert") {
@@ -178,7 +180,7 @@ function renderCategories() {
     // Update section header text based on tab
     const sectionTitle = document.getElementById("section-title");
     const sectionDesc = document.getElementById("section-description");
-    if (activeTab === "ai-fluency") {
+    if (getActiveTab() === "ai-fluency") {
         sectionTitle.textContent = "Select AI Knowledge Domain";
         sectionDesc.textContent = "Choose a specialization to start your 10-question dynamic quiz module.";
     } else {
